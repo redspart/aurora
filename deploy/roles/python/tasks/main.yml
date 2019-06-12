@@ -3,6 +3,8 @@
 - name: DEBUG!
   debug:
     var: custom_repo
+  tags:
+    - python2
 
 - name: Install Python27 from repo
   yum:
