@@ -7,6 +7,13 @@
     - python2
     - debugpy
 
+- name: DEBUG 2!
+  debug:
+    var: install_python
+  tags:
+    - python2
+    - debugpy
+
 - name: DEBUG True!
   debug:
     msg: The var is True!
@@ -17,7 +24,7 @@
 
 - name: DEBUG False!
   debug:
-    msg: The var is True!
+    msg: The var is False!
   when: not custom_repo
   tags:
     - python2
