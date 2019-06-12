@@ -7,6 +7,22 @@
     - python2
     - debugpy
 
+- name: DEBUG True!
+  debug:
+    msg: The var is True!
+  when: custom_repo
+  tags:
+    - python2
+    - debugpy
+
+- name: DEBUG False!
+  debug:
+    msg: The var is True!
+  when: not custom_repo
+  tags:
+    - python2
+    - debugpy
+
 - name: Install Python27 from repo
   yum:
     name: python27
