@@ -30,6 +30,7 @@
     - sqitch
     - nodejs
     - maven
+	- tesseract
     #- julia
 
 - hosts: ci_agent

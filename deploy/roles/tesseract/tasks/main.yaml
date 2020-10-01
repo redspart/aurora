@@ -1,0 +1,55 @@
+--
+- name: Get autoconf
+  get_url:
+	url: http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
+	dest: /tmp
+
+- name: Extract autoconf
+  unarchive:
+	src: /tmp/autoconf-2.69.tar.gz
+	dest: /tmp
+	copy: no
+
+- name: Build autoconf
+  shell: ./tmp/autoconf-2.69/configure
+
+- name: Install autoconf
+  community.general.make:
+	chdir: /tmp/autoconf-2.69
+	target: install
+  become: yes
+
+- name: Get Leptonica
+  get_url:
+	url: http://leptonica.org/source/leptonica-1.77.0.tar.gz
+	dest: /tmp
+
+- name: Extract Leptonica
+  unarchive:
+	src: /tmp/leptonica-1.77.0.tar.gz
+	dest: /tmp
+	copy: no
+
+- name: Buld Leptonica
+  shell: ./tmp/leptonica-1.77.0/configure --prefix=/usr/local
+
+- name: Install Leptonica
+  community.general.make:
+	chdir: /tmp/leptonica-1.77.0
+	target: install
+  become: yes
+
+- name: Install Tesseract
+  get_url:
+	url: https://github.com/tesseract-ocr/tesseract/archive/4.0.0.tar.gz -O tesseract-4.0.0.tar.gz
+	dest: /tmp
+
+- name: Extract Tesseract
+  unarchive:
+	src: /tmp/tesseract-4.0.0.tar.gz
+	dest: /tmp
+	copy: no
+
+# Autoconf
+# Config
+# Install
