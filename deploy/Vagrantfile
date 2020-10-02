@@ -563,7 +563,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define :ci_server do |server|
     server.vm.host_name = "ci-server.test.dev"
-    server.vm.network :private_network, ip: "10.0.1.26", name: "vagrant-network", docker_connect__hostname: "ci-server.test.dev"
+    server.vm.network :private_network, ip: "10.0.1.26"
     server.vm.network "forwarded_port", guest: 22, host: 2211
     server.vm.network "forwarded_port", guest: 8153, host: 8153
     server.ssh.forward_agent = true
@@ -594,7 +594,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define :ci_agent_1 do |server|
     server.vm.host_name = "ci-agent-1.test.dev"
-    server.vm.network :private_network, ip: "10.0.1.27", name: "vagrant-network", docker_connect__hostname: "ci-agent-1.test.dev"
+    server.vm.network :private_network, ip: "10.0.1.27"
     server.vm.network "forwarded_port", guest: 22, host: 2212
     server.ssh.forward_agent = true
 
