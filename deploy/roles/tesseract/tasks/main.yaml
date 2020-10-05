@@ -13,7 +13,7 @@
 
 - name: Get autoconf
   get_url:
-    url: http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
+    url: "{{ autoconf_url }}"
     dest: /tmp
 
 - name: Extract autoconf
@@ -34,7 +34,7 @@
 
 - name: Get autoconf-archive
   get_url:
-    url: http://ftpmirror.gnu.org/autoconf-archive/autoconf-archive-2019.01.06.tar.xz
+    url: "{{ autoconf_archive_url }}"
     dest: /tmp
 
 - name: Extract autoconf-archive
@@ -55,7 +55,7 @@
 
 - name: Download Leptonica
   get_url:
-    url: http://leptonica.org/source/leptonica-1.77.0.tar.gz
+    url: "{{ leptonica_url }}"
     dest: /tmp
 
 - name: Extract Leptonica
@@ -70,13 +70,13 @@
   args:
     chdir: /tmp/leptonica-1.77.0/
   with_items:
-    - ./configure --prefix=/usr/local/
-    - make
+    - ./configure --prefix=/usr/local/ CC={{ CC }}
+    - make CC={{ CC }}
     - make install
 
 - name: Download Tesseract
   get_url:
-    url: https://github.com/tesseract-ocr/tesseract/archive/4.0.0.tar.gz
+    url: "{{ tesseract_url }}"
     dest: /tmp
     
 - name: Extract Tesseract
@@ -88,12 +88,12 @@
 
 - name: Tesseract - Build and install # need to enable devtools7
   shell: "{{ item }}"
+  environment:
+    - PKG_CONFIG_PATH: /usr/local/lib/pkgconfig
   args:
     chdir: /tmp/tesseract-4.0.0/
   with_items:
-    - source /opt/rh/devtoolset-6/enable
-    - export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-    - ./autogen.sh
-    - ./configure --prefix=/usr/local --with-extra-libraries=/usr/local/lib
+    - ./autogen.sh CC={{ CC }} CXX={{ CXX }}
+    - ./configure CC={{ CC }} CXX={{ CXX }} --prefix=/usr/local --with-extra-libraries=/usr/local/lib 
     - make
     - make install
